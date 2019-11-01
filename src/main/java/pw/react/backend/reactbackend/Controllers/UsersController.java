@@ -35,4 +35,5 @@ public class UsersController {
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok().body(_usersRepository.findAll());
     }
+
 }
