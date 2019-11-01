@@ -66,15 +66,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<profiles>
-						<profile>
-						<id>dev</id>
-						<activation>
-							<activeByDefault>true</activeByDefault>
-						</activation>
-						<properties>
-							<spring.profiles.active>dev</spring.profiles.active>
-						</properties>
-					</profile>
+						<profile>dev</profile>
 					</profiles>
 				</configuration>
 			</plugin>
