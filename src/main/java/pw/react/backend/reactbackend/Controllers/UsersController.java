@@ -16,23 +16,30 @@ import java.util.List;
 public class UsersController {
 
     private final UsersService _usersService;
-    private final UsersRepository _usersRepository;
 
     @Autowired
-    public UsersController(UsersService usersService, UsersRepository usersRepository) {
+    public UsersController(UsersService usersService) {
         _usersService=usersService;
-        _usersRepository=usersRepository;
     }
 
     @PostMapping("/Users/")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user)  {
-        User result = _usersRepository.save(user);
-
+        if (_usersService.exists(user)) {
+            throw new UserAlreadyExistsException("Login: " + user.getLogin());
+        }
+        User result = _usersService.save(user);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(path = "")
     public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok().body(_usersRepository.findAll());
+        return ResponseEntity.ok().body(_usersService.findAll());
+    }
+
+    @ExceptionHandler({UserAlreadyExistsException.class})
+    public ResponseEntity<ErrorResponse> alreadyExists(UserAlreadyExistsException ex) {
+        return new ResponseEntity<>(
+                new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
     }
 }
