@@ -77,4 +77,12 @@ public class User {
     public void setIsActive(boolean isActive) {
         IsActive = isActive;
     }
+
+    public void setAllData(String login, String firstName, String lastName, Date birthDate, boolean isActive){
+        this.setLogin(login);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setBirthDate(birthDate);
+        this.setIsActive(isActive);
+    }
 }
