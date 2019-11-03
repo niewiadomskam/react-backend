@@ -34,8 +34,17 @@ public class UsersController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok().body(_usersService.findAll());
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String login) {
+        List<User> result;
+        if (login != null && login.length() > 0)
+            result = _usersService.findByLogin(login);
+        else
+            result = _usersService.findAll();
+        if (result == null) {
+            throw new UserNotFoundException("Login: " + login);
+        }
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/Users/{id}")

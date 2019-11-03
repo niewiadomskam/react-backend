@@ -4,8 +4,7 @@ package pw.react.backend.reactbackend.Models;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Date;
-
+import java.time.LocalDate;
 
 
 @Entity
@@ -21,7 +20,7 @@ public class User {
     @Column(nullable = false)
     private String LastName;
 
-    private Date BirthDate;
+    private LocalDate BirthDate;
 
     @Column(nullable = false)
     private String Login;
@@ -54,11 +53,11 @@ public class User {
         this.LastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return BirthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         BirthDate = birthDate;
     }
 
@@ -78,7 +77,7 @@ public class User {
         IsActive = isActive;
     }
 
-    public void setAllData(String login, String firstName, String lastName, Date birthDate, boolean isActive){
+    public User setAllData(String login, String firstName, String lastName, LocalDate birthDate, boolean isActive){
         this.setLogin(login);
         this.setFirstName(firstName);
         this.setLastName(lastName);
